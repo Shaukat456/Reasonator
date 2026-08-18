@@ -31,178 +31,132 @@ Examples include:
 - A mass attached to a spring
 - A pendulum
 - A guitar string
-- An LC circuit
-- An RLC circuit
-- An electromagnetic cavity
-- An optical cavity
-- A vibrating crystal
-- A quantum harmonic oscillator
-- A cavity mode containing photons
 
-A simple classical oscillator can be represented as:
+# 46. Core Equations Cheat Sheet
 
-[
-x(t)=A\cos(\omega t+\phi)
-]
+## Classical harmonic oscillator
 
-where:
+$$
+\boxed{m\ddot{x}+kx=0}
+$$
 
-- (A) is the amplitude
-- (\omega) is the angular frequency
-- (t) is time
-- (\phi) is the phase
+## Natural angular frequency
 
-The angular frequency and ordinary frequency are related by:
-
-[
-\boxed{\omega=2\pi f}
-]
-
----
-
-# 2. What Is a Resonator?
-
-An oscillator simply needs to oscillate.
-
-A **resonator** is an oscillator or physical system that has one or more characteristic frequencies at which it responds particularly strongly.
-
-For example, consider a mass attached to a spring.
-
-The system has a natural angular frequency:
-
-[
+$$
 \boxed{\omega_0=\sqrt{\frac{k}{m}}}
-]
+$$
 
-and natural frequency:
+## Natural frequency
 
-[
-\boxed{
-f_0=\frac{1}{2\pi}\sqrt{\frac{k}{m}}
-}
-]
+$$
+\boxed{f_0=\frac{\omega_0}{2\pi}}
+$$
 
-where:
+## Damped oscillator
 
-- (m) is the mass
-- (k) is the spring constant
+$$
+\boxed{m\ddot{x}+b\dot{x}+kx=0}
+$$
 
-This natural frequency is one of the most important properties of the resonator.
+## Driven oscillator
 
----
+$$
+\boxed{m\ddot{x}+b\dot{x}+kx=F_0\cos(\omega t)}
+$$
 
-# 3. The Fundamental Idea of Resonance
+## Frequency response
 
-Suppose a resonator naturally oscillates at:
+$$
+\boxed{A(\omega)=\frac{F_0}{\sqrt{(k-m\omega^2)^2+(b\omega)^2}}}
+$$
 
-[
-f_0=2\text{ Hz}
-]
+## Damping ratio
 
-Now apply an external periodic force.
+$$
+\boxed{\zeta=\frac{b}{2\sqrt{mk}}}
+$$
 
-If the driving frequency is far away from (2\text{ Hz}), the response may be relatively small.
+## LC resonance
 
-But if:
+$$
+\boxed{\omega_0=\frac{1}{\sqrt{LC}}}
+$$
 
-[
-f_{\text{drive}}\approx f_0
-]
+## Optical cavity
 
-the oscillator can absorb energy very efficiently.
+$$
+\boxed{f_n=\frac{nc}{2L}}
+$$
 
-The amplitude can become very large.
+## Quantum harmonic oscillator
 
-This phenomenon is called:
+$$
+\boxed{\hat H=\frac{\hat p^2}{2m}+\frac{1}{2}m\omega^2\hat x^2}
+$$
 
-[
-\boxed{\text{resonance}}
-]
+## Quantum energy levels
 
----
+$$
+\boxed{E_n=\hbar\omega\left(n+\frac{1}{2}\right)}
+$$
 
-# 4. The Swing Analogy
+## Photon energy
 
-Imagine pushing a swing.
+$$
+\boxed{E_\gamma=\hbar\omega=hf}
+$$
 
-If you push at random times:
+## Atomic transition frequency
 
-```text
-push → motion
-      ↓
-push → sometimes helps
-      ↓
-push → sometimes opposes
-```
-
-Energy is transferred inefficiently.
-
-But if you push at the correct frequency and phase:
-
-```text
-push → motion increases
-push → motion increases
-push → motion increases
-push → motion increases
-```
-
-The swing gets larger and larger.
-
-This is the basic intuition behind resonance.
-
-The external source is transferring energy into the oscillator efficiently.
+$$
+\boxed{\omega_{eg}=\frac{E_e-E_g}{\hbar}}
+$$
 
 ---
 
-# 5. Classical Harmonic Oscillator
-
-The simplest resonator is the mass–spring system.
-
-By Newton's second law:
-
-[
+$$
 F=m\ddot{x}
-]
+$$
 
 The restoring force from the spring is:
 
-[
+$$
 F=-kx
-]
+$$
 
 Therefore:
 
-[
+$$
 m\ddot{x}=-kx
-]
+$$
 
 or:
 
-[
+$$
 \boxed{
 m\ddot{x}+kx=0
 }
-]
+$$
 
 Dividing by (m):
 
-[
+$$
 \ddot{x}+\frac{k}{m}x=0
-]
+$$
 
 Comparing this with the standard harmonic oscillator equation:
 
-[
+$$
 \ddot{x}+\omega_0^2x=0
-]
+$$
 
 we obtain:
 
-[
+$$
 \boxed{
 \omega_0=\sqrt{\frac{k}{m}}
 }
-]
+$$
 
 ---
 
@@ -223,27 +177,27 @@ print("Natural frequency:", frequency, "Hz")
 
 For:
 
-[
+$$
 m=1\text{ kg}
-]
+$$
 
 and:
 
-[
+$$
 k=100\text{ N/m}
-]
+$$
 
 we obtain:
 
-[
+$$
 \omega_0=10\text{ rad/s}
-]
+$$
 
 and:
 
-[
+$$
 f_0\approx1.59\text{ Hz}
-]
+$$
 
 ---
 
@@ -253,49 +207,49 @@ This can be understood physically.
 
 The spring stores potential energy:
 
-[
+$$
 U=\frac12kx^2
-]
+$$
 
 The moving mass stores kinetic energy:
 
-[
+$$
 K=\frac12mv^2
-]
+$$
 
 The energy continuously moves between these two forms:
 
-[
+$$
 \boxed{
 \text{Potential Energy}
 \leftrightarrow
 \text{Kinetic Energy}
 }
-]
+$$
 
 At maximum displacement:
 
-[
+$$
 K\approx0
-]
+$$
 
 and:
 
-[
+$$
 U\text{ is maximum}
-]
+$$
 
 At equilibrium:
 
-[
+$$
 U\approx0
-]
+$$
 
 and:
 
-[
+$$
 K\text{ is maximum}
-]
+$$
 
 This continuous energy exchange produces oscillation.
 
@@ -315,15 +269,15 @@ Examples:
 
 We introduce a damping force:
 
-[
+$$
 F_d=-b\dot{x}
-]
+$$
 
 Therefore:
 
-[
+$$
 m\ddot{x}+b\dot{x}+kx=0
-]
+$$
 
 This is the equation of a damped harmonic oscillator.
 
@@ -364,36 +318,36 @@ The amplitude gradually decreases because energy is being lost.
 
 The damping ratio is:
 
-[
+$$
 \boxed{
 \zeta=
 \frac{b}{2\sqrt{mk}}
 }
-]
+$$
 
 It tells us how strongly the system is damped.
 
 ### Underdamped
 
-[
+$$
 0<\zeta<1
-]
+$$
 
 The system oscillates while gradually losing energy.
 
 ### Critically damped
 
-[
+$$
 \zeta=1
-]
+$$
 
 The system returns to equilibrium as quickly as possible without oscillating.
 
 ### Overdamped
 
-[
+$$
 \zeta>1
-]
+$$
 
 The system returns to equilibrium without oscillating and does so more slowly.
 
@@ -403,22 +357,16 @@ The system returns to equilibrium without oscillating and does so more slowly.
 
 Now suppose an external periodic force is applied:
 
-[
+$$
 F(t)=F_0\cos(\omega t)
-]
+$$
 
 The equation becomes:
+The equation becomes:
 
-[
-\boxed{
-m\ddot{x}
-+b\dot{x}
-+kx
-===
-
-F_0\cos(\omega t)
-}
-]
+$$
+\boxed{m\ddot{x}+b\dot{x}+kx=F_0\cos(\omega t)}
+$$
 
 This is the fundamental equation of the **driven damped resonator**.
 
@@ -426,41 +374,32 @@ There are now two important frequencies:
 
 ### Natural frequency
 
-[
+$$
 \omega_0=\sqrt{\frac{k}{m}}
-]
+$$
 
 ### Driving frequency
 
-[
+$$
 \omega
-]
+$$
 
 The interesting physics occurs when:
 
-[
+$$
 \omega\approx\omega_0
-]
+$$
 
 ---
 
 # 12. Steady-State Amplitude
 
 For the driven oscillator, the steady-state amplitude is:
+For the driven oscillator, the steady-state amplitude is:
 
-[
-\boxed{
-A(\omega)
-=========
-
-\frac{F_0}
-{
-\sqrt{
-(k-m\omega^2)^2+(b\omega)^2
-}
-}
-}
-]
+$$
+\boxed{A(\omega)=\frac{F_0}{\sqrt{(k-m\omega^2)^2+(b\omega)^2}}}
+$$
 
 This equation tells us how strongly the system responds to a driving frequency.
 
@@ -472,9 +411,9 @@ This is called the **frequency response**.
 
 We can calculate:
 
-[
+$$
 A(f)
-]
+$$
 
 for many frequencies and plot the result.
 
@@ -574,23 +513,23 @@ The **quality factor** describes how sharp or selective a resonance is.
 
 For a lightly damped mechanical oscillator:
 
-[
+$$
 \boxed{
 Q\approx\frac{m\omega_0}{b}
 }
-]
+$$
 
 A high-(Q) resonator has:
 
-[
+$$
 \boxed{\text{sharp resonance}}
-]
+$$
 
 A low-(Q) resonator has:
 
-[
+$$
 \boxed{\text{broad resonance}}
-]
+$$
 
 This concept becomes extremely important in:
 
@@ -611,20 +550,20 @@ Consider an LC circuit.
 
 The natural angular frequency is:
 
-[
+$$
 \boxed{
 \omega_0=\frac{1}{\sqrt{LC}}
 }
-]
+$$
 
 and:
 
-[
+$$
 \boxed{
 f_0=
 \frac{1}{2\pi\sqrt{LC}}
 }
-]
+$$
 
 The correspondence with the mechanical oscillator is:
 
@@ -653,13 +592,13 @@ The string has characteristic frequencies determined by:
 
 For an ideal stretched string:
 
-[
+$$
 \boxed{
 f_n=
 \frac{n}{2L}
 \sqrt{\frac{T}{\mu}}
 }
-]
+$$
 
 where:
 
@@ -682,9 +621,9 @@ Earthquakes contain a broad range of frequencies.
 
 If significant energy occurs near one of the building's natural frequencies:
 
-[
+$$
 f_{\text{earthquake}}\approx f_{\text{building}}
-]
+$$
 
 the building can experience enhanced oscillations.
 
@@ -762,9 +701,9 @@ Only certain wavelengths satisfy the cavity boundary conditions.
 
 For a simple cavity:
 
-[
+$$
 L=n\frac{\lambda}{2}
-]
+$$
 
 where:
 
@@ -774,25 +713,25 @@ where:
 
 Therefore:
 
-[
+$$
 \boxed{
 \lambda_n=\frac{2L}{n}
 }
-]
+$$
 
 and since:
 
-[
+$$
 f=\frac{c}{\lambda}
-]
+$$
 
 the resonant frequencies are:
 
-[
+$$
 \boxed{
 f_n=\frac{nc}{2L}
 }
-]
+$$
 
 These are the allowed cavity modes.
 
@@ -822,9 +761,9 @@ The mathematical idea is remarkably similar.
 
 ### Mechanical resonator
 
-[
+$$
 m\ddot{x}+b\dot{x}+kx=F(t)
-]
+$$
 
 ### Optical resonator
 
@@ -832,9 +771,9 @@ The electromagnetic field satisfies Maxwell's equations and cavity boundary cond
 
 The field supports discrete modes:
 
-[
+$$
 f_1,f_2,f_3,\ldots
-]
+$$
 
 In both cases:
 
@@ -858,25 +797,15 @@ The classical harmonic oscillator has a quantum counterpart.
 
 Classically:
 
-[
-H=
-\frac{p^2}{2m}
-
-- \frac12m\omega^2x^2
-  ]
+$$
+H=\frac{p^2}{2m}-\frac{1}{2}m\omega^2 x^2
+$$
 
 In quantum mechanics:
 
-[
-\boxed{
-\hat{H}
-=======
-
-\frac{\hat{p}^2}{2m}
-
-- \frac12m\omega^2\hat{x}^2
-  }
-  ]
+$$
+\boxed{\hat{H}=\frac{\hat{p}^2}{2m}+\frac{1}{2}m\omega^2\hat{x}^2}
+$$
 
 The Hamiltonian becomes an operator.
 
@@ -884,7 +813,7 @@ The energy is no longer continuous.
 
 Instead:
 
-[
+$$
 \boxed{
 E_n=
 \hbar\omega
@@ -892,13 +821,13 @@ E_n=
 n+\frac12
 \right)
 }
-]
+$$
 
 where:
 
-[
+$$
 n=0,1,2,\ldots
-]
+$$
 
 ---
 
@@ -906,17 +835,17 @@ n=0,1,2,\ldots
 
 Classically, the oscillator can have any energy:
 
-[
+$$
 E>0
-]
+$$
 
 Quantum mechanically:
 
-[
+$$
 E_n=
 \hbar\omega
 \left(n+\frac12\right)
-]
+$$
 
 Therefore:
 
@@ -974,45 +903,45 @@ This is a profound connection.
 
 Classically:
 
-[
+$$
 \text{Electromagnetic mode}
 \longleftrightarrow
 \text{harmonic oscillator}
-]
+$$
 
 Quantum mechanically:
 
-[
+$$
 \text{Quantized EM mode}
 \longleftrightarrow
 \text{quantum harmonic oscillator}
-]
+$$
 
 The energy becomes:
 
-[
+$$
 E_n=
 \hbar\omega
 \left(n+\frac12\right)
-]
+$$
 
 The excitation number (n) corresponds to the number of photons in that mode.
 
 Thus:
 
-[
+$$
 \boxed{
 n=\text{photon number}
 }
-]
+$$
 
 and the photon energy is:
 
-[
+$$
 \boxed{
 E_{\text{photon}}=\hbar\omega
 }
-]
+$$
 
 ---
 
@@ -1022,25 +951,15 @@ Consider a cavity that supports one electromagnetic mode.
 
 Classically, that mode has frequency:
 
-[
+$$
 \omega_c
-]
+$$
 
 After quantization, we can write:
 
-[
-\boxed{
-\hat{H}\_{\text{cavity}}
-=======================
-
-\hbar\omega_c
-\left(
-\hat{a}^{\dagger}\hat{a}
-
-- \frac12
-  \right)
-  }
-  ]
+$$
+\boxed{\hat{H}_{\text{cavity}}=\hbar\omega_c\left(\hat{a}^{\dagger}\hat{a}+\tfrac{1}{2}\right)}
+$$
 
 where:
 
@@ -1050,9 +969,9 @@ where:
 
 The eigenstates are:
 
-[
+$$
 |0\rangle,\ |1\rangle,\ |2\rangle,\ldots
-]
+$$
 
 representing:
 
@@ -1067,17 +986,17 @@ representing:
 
 The quantum harmonic oscillator has a ground-state energy:
 
-[
+$$
 \boxed{
 E_0=\frac12\hbar\omega
 }
-]
+$$
 
 This means that even when:
 
-[
+$$
 n=0
-]
+$$
 
 the oscillator still has nonzero energy.
 
@@ -1114,40 +1033,35 @@ The system has discrete energy states.
 
 For a quantum harmonic oscillator:
 
-[
+$$
 E_n=
 \hbar\omega
 \left(n+\frac12\right)
-]
+$$
 
 A quantum system can undergo transitions between energy levels when interacting with an appropriate external field.
 
 For example:
 
-[
+$$
 |n\rangle
 \rightarrow
 |n+1\rangle
-]
+$$
 
 The energy difference is:
 
-[
-\Delta E
-========
-
-# E\_{n+1}-E_n
-
-\hbar\omega
-]
+$$
+\Delta E = E_{n+1}-E_n = \hbar\omega
+$$
 
 Therefore the required transition frequency is:
 
-[
+$$
 \boxed{
 \omega_{\text{transition}}=\omega
 }
-]
+$$
 
 This is one way resonance appears in quantum physics.
 
@@ -1157,37 +1071,37 @@ This is one way resonance appears in quantum physics.
 
 A two-level atom can be represented by:
 
-[
+$$
 |g\rangle
-]
+$$
 
 for the ground state and:
 
-[
+$$
 |e\rangle
-]
+$$
 
 for the excited state.
 
 The energy difference is:
 
-[
+$$
 \Delta E=E_e-E_g
-]
+$$
 
 The corresponding transition frequency is:
 
-[
+$$
 \boxed{
 \omega_0=\frac{\Delta E}{\hbar}
 }
-]
+$$
 
 If we drive the atom with an electromagnetic field having:
 
-[
+$$
 \omega_{\text{drive}}\approx\omega_0
-]
+$$
 
 the atom can strongly interact with the field.
 
@@ -1199,15 +1113,15 @@ Again we encounter resonance.
 
 A driven two-level quantum system can exhibit oscillations between:
 
-[
+$$
 |g\rangle
-]
+$$
 
 and:
 
-[
+$$
 |e\rangle
-]
+$$
 
 These are called **Rabi oscillations**.
 
@@ -1243,35 +1157,35 @@ Now combine:
 
 The cavity has a frequency:
 
-[
+$$
 \omega_c
-]
+$$
 
 The atom has a transition frequency:
 
-[
+$$
 \omega_a
-]
+$$
 
 If:
 
-[
+$$
 \omega_a\approx\omega_c
-]
+$$
 
 the atom and cavity interact strongly.
 
 This is the domain of:
 
-[
+$$
 \boxed{\text{Cavity Quantum Electrodynamics}}
-]
+$$
 
 or:
 
-[
+$$
 \boxed{\text{Cavity QED}}
-]
+$$
 
 ---
 
@@ -1279,22 +1193,9 @@ or:
 
 A fundamental model of cavity QED is the Jaynes–Cummings Hamiltonian:
 
-[
-\boxed{
-\hat{H}
-=======
-
-\hbar\omega_c
-\hat{a}^{\dagger}\hat{a}
-
-- \frac{\hbar\omega_a}{2}\hat{\sigma}\*z
-- \hbar g
-  \left(
-  \hat{a}^{\dagger}\hat{\sigma}\*-
-- \hat{a}\hat{\sigma}\_+
-  \right)
-  }
-  ]
+$$
+\boxed{\hat{H}=\hbar\omega_c\hat{a}^{\dagger}\hat{a}+\frac{\hbar\omega_a}{2}\hat{\sigma}_z+\hbar g\left(\hat{a}^{\dagger}\hat{\sigma}_-+\hat{a}\hat{\sigma}_+\right)}
+$$
 
 Here:
 
@@ -1308,13 +1209,13 @@ Here:
 
 The interaction allows energy to move between:
 
-[
+$$
 \boxed{
 \text{Atom}
 \leftrightarrow
 \text{Cavity}
 }
-]
+$$
 
 ---
 
@@ -1324,39 +1225,39 @@ The same concept of resonance has now appeared at several levels.
 
 ### Classical mechanics
 
-[
+$$
 \text{mass-spring resonance}
-]
+$$
 
 ### Electrical engineering
 
-[
+$$
 \text{LC/RLC resonance}
-]
+$$
 
 ### Electromagnetism
 
-[
+$$
 \text{cavity modes}
-]
+$$
 
 ### Quantum mechanics
 
-[
+$$
 \text{energy-level transitions}
-]
+$$
 
 ### Quantum optics
 
-[
+$$
 \text{atom-field resonance}
-]
+$$
 
 ### Cavity QED
 
-[
+$$
 \text{atom-cavity resonance}
-]
+$$
 
 The mathematical details become more sophisticated, but the physical intuition remains related.
 
@@ -1414,11 +1315,11 @@ for level, E in zip(n, energy):
 
 The important physics is:
 
-[
+$$
 E_n=
 \hbar\omega
 \left(n+\frac12\right)
-]
+$$
 
 ---
 
@@ -1426,31 +1327,31 @@ E_n=
 
 A cavity mode with frequency:
 
-[
+$$
 f
-]
+$$
 
 contains photons with energy:
 
-[
+$$
 \boxed{
 E=hf
 }
-]
+$$
 
 Since:
 
-[
+$$
 \omega=2\pi f
-]
+$$
 
 we can also write:
 
-[
+$$
 \boxed{
 E=\hbar\omega
 }
-]
+$$
 
 Python:
 
@@ -1470,15 +1371,15 @@ print("Photon energy:", photon_energy, "J")
 
 Suppose:
 
-[
+$$
 L=1\text{ cm}
-]
+$$
 
 The fundamental cavity frequency is approximately:
 
-[
+$$
 f_1=\frac{c}{2L}
-]
+$$
 
 Python:
 
@@ -1493,17 +1394,17 @@ print("Fundamental cavity frequency:", f1, "Hz")
 
 The higher modes are:
 
-[
+$$
 f_n=\frac{nc}{2L}
-]
+$$
 
 so:
 
-[
+$$
 f_1,\quad
 f_2,\quad
 f_3,\quad\ldots
-]
+$$
 
 form a discrete set of cavity resonances.
 
@@ -1530,24 +1431,19 @@ The language of resonance appears repeatedly.
 
 For example:
 
-[
+$$
 \boxed{
 \text{Cavity resonance}
 }
-]
+$$
 
 determines which optical frequencies build up inside the cavity.
 
 Similarly, atomic systems have transition frequencies:
 
-[
-\boxed{
-\omega\_{eg}
-===========
-
-\frac{E_e-E_g}{\hbar}
-}
-]
+$$
+\boxed{\omega_{eg}=\frac{E_e-E_g}{\hbar}}
+$$
 
 and strong interaction occurs when the driving field is near that transition frequency.
 
@@ -1559,20 +1455,15 @@ This is perhaps the most important physical interpretation.
 
 Do not memorize only:
 
-[
+$$
 f_{\text{drive}}\approx f_0
-]
+$$
 
 Instead remember:
 
-[
-\boxed{
-\text{Resonance}
-================
-
-\text{efficient energy transfer}
-}
-]
+$$
+\boxed{\text{Resonance} = \text{efficient energy transfer}}
+$$
 
 The frequency matching allows the external source to continuously add energy in a favorable way.
 
@@ -1580,13 +1471,13 @@ Damping removes energy.
 
 Therefore the steady-state amplitude is determined by a competition:
 
-[
+$$
 \boxed{
 \text{Energy supplied}
 \leftrightarrow
 \text{Energy lost}
 }
-]
+$$
 
 ---
 
@@ -1650,9 +1541,9 @@ mass = 5
 
 Observe:
 
-[
+$$
 \omega_0=\sqrt{\frac{k}{m}}
-]
+$$
 
 The natural frequency should decrease as mass increases.
 
@@ -1670,9 +1561,9 @@ spring_constant = 400
 
 Observe:
 
-[
+$$
 \omega_0\propto\sqrt{k}
-]
+$$
 
 The resonance frequency should increase.
 
@@ -1715,10 +1606,10 @@ The amplitude increases because more energy is supplied to the oscillator.
 
 Use:
 
-[
+$$
 f_0=
 \frac{1}{2\pi\sqrt{LC}}
-]
+$$
 
 and investigate how changing (L) and (C) changes the resonance frequency.
 
@@ -1728,17 +1619,17 @@ and investigate how changing (L) and (C) changes the resonance frequency.
 
 Calculate:
 
-[
+$$
 E_n=
 \hbar\omega
 \left(n+\frac12\right)
-]
+$$
 
 for:
 
-[
+$$
 n=0,1,\ldots,10
-]
+$$
 
 Plot the energy levels.
 
@@ -1748,15 +1639,15 @@ Plot the energy levels.
 
 Calculate:
 
-[
+$$
 f_n=\frac{nc}{2L}
-]
+$$
 
 for:
 
-[
+$$
 n=1,\ldots,10
-]
+$$
 
 Plot the cavity modes.
 
@@ -1862,50 +1753,45 @@ This progression is much more useful than memorizing isolated formulas.
 
 ## Classical harmonic oscillator
 
-[
+$$
 \boxed{
 m\ddot{x}+kx=0
 }
-]
+$$
 
 ## Natural angular frequency
 
-[
+$$
 \boxed{
 \omega_0=\sqrt{\frac{k}{m}}
 }
-]
+$$
 
 ## Natural frequency
 
-[
+$$
 \boxed{
 f_0=\frac{\omega_0}{2\pi}
 }
-]
+$$
 
 ## Damped oscillator
 
-[
+$$
 \boxed{
 m\ddot{x}+b\dot{x}+kx=0
 }
-]
+$$
 
 ## Driven oscillator
 
-[
-\boxed{
-m\ddot{x}+b\dot{x}+kx
-=====================
-
-F_0\cos(\omega t)
-}
-]
+$$
+\boxed{m\ddot{x}+b\dot{x}+kx=F_0\cos(\omega t)}
+$$
 
 ## Frequency response
 
-[
+$$
 \boxed{
 A(\omega)=
 \frac{F_0}
@@ -1915,37 +1801,37 @@ A(\omega)=
 }
 }
 }
-]
+$$
 
 ## Damping ratio
 
-[
+$$
 \boxed{
 \zeta=
 \frac{b}{2\sqrt{mk}}
 }
-]
+$$
 
 ## LC resonance
 
-[
+$$
 \boxed{
 \omega_0=
 \frac{1}{\sqrt{LC}}
 }
-]
+$$
 
 ## Optical cavity
 
-[
+$$
 \boxed{
 f_n=\frac{nc}{2L}
 }
-]
+$$
 
 ## Quantum harmonic oscillator
 
-[
+$$
 \boxed{
 \hat H=
 \frac{\hat p^2}{2m}
@@ -1956,32 +1842,35 @@ f_n=\frac{nc}{2L}
 
 ## Quantum energy levels
 
-[
+
+$$
+
 \boxed{
 E_n=
 \hbar\omega
 \left(n+\frac12\right)
 }
-]
+
+$$
 
 ## Photon energy
 
-[
+
+$$
+
 \boxed{
-E_\gamma=\hbar\omega=hf
+E\_\gamma=\hbar\omega=hf
 }
-]
+
+$$
 
 ## Atomic transition frequency
 
-$$
-\boxed{
-\omega\_{eg}
-===========
 
-\frac{E_e-E_g}{\hbar}
-}
-]
+$$
+
+\boxed{\omega\_{eg}=\frac{E_e-E_g}{\hbar}}
+
 $$
 
 ---
@@ -2000,7 +1889,9 @@ When an external interaction matches one of those frequencies, the response can 
 
 This appears in:
 
-[
+
+$$
+
 \boxed{
 \begin{array}{c}
 \text{Mechanical systems}\
@@ -2016,7 +1907,8 @@ This appears in:
 \text{Atom--field interactions}
 \end{array}
 }
-]
+
+$$
 
 So the simple mass–spring oscillator is not merely a beginner physics example.
 
@@ -2028,7 +1920,9 @@ It is the starting point for understanding a surprisingly large part of modern p
 
 The purpose of this project is to develop the following scientific habit:
 
-[
+
+$$
+
 \boxed{
 \text{Physical intuition}
 \rightarrow
@@ -2040,7 +1934,8 @@ The purpose of this project is to develop the following scientific habit:
 \rightarrow
 \text{Physical interpretation}
 }
-]
+
+$$
 
 For computational physics, this workflow is often more valuable than simply knowing how to write code.
 
@@ -2143,3 +2038,4 @@ Cavity QED
 ```
 
 That is the conceptual bridge from a simple classical spring to modern quantum optics.
+$$
