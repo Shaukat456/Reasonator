@@ -1,289 +1,143 @@
-# Classical Resonator in Python
+# Classical and Quantum Resonators — Python Simulation
 
-A simple Python project for understanding and simulating a **classical resonator** using the damped, driven harmonic oscillator.
+A computational physics project for understanding **oscillators, resonators, resonance, damping, frequency response, and quantum resonators** using Python.
 
-The project connects the physics of oscillations with a practical Python implementation and demonstrates:
+The project starts with the simplest classical mass–spring system and gradually connects it to:
 
-- Natural frequency
-- Resonance
-- Damping
-- Driving force
-- Frequency response
-- Effect of damping on resonance
-- Applications of resonators in the real world
+- Mechanical resonators
+- Driven and damped oscillators
+- Electrical LC and RLC resonators
+- Coupled oscillators
+- Resonance and frequency response
+- Quality factor (Q)
+- Optical cavities
+- Quantum harmonic oscillators
+- Quantized electromagnetic modes
+- Cavity quantum electrodynamics (Cavity QED)
+- Quantum optics
 
----
+The main goal is not simply to calculate numbers.
 
-## 1. What is a Resonator?
-
-A **resonator** is a physical system that naturally oscillates at a particular frequency.
-
-A simple example is a mass attached to a spring.
-
-If we pull the mass away from equilibrium and release it, the mass oscillates:
-
-```text
-       Spring
-         |
-         |
-       /\/\/\
-         |
-         |
-        [ m ]
-         |
-         ↓
-       motion
-```
-
-The system has a preferred frequency called its **natural frequency**.
-
-For an ideal mass-spring system:
-
-where:
-
-- (m) = mass
-- (k) = spring constant
-- (\omega_0) = natural angular frequency
-
-The corresponding frequency in Hz is:
-
-$$
-f_0 = \frac{\omega_0}{2\pi}
-$$
+The goal is to understand the **physics → mathematics → simulation → physical interpretation** connection.
 
 ---
 
-# 2. Why Do We Study Resonators?
+# 1. What Is an Oscillator?
 
-Resonators appear everywhere in physics and engineering.
+An **oscillator** is a physical system that undergoes repeated motion or variation around some equilibrium state.
 
 Examples include:
 
-- Mechanical vibrations
-- Musical instruments
-- Bridges and buildings
-- Quartz clocks
-- Radio circuits
-- Microwave cavities
-- Optical cavities
-- Lasers
-- Atomic systems
-- Quantum harmonic oscillators
-- Sensors
+- A mass attached to a spring
+- A pendulum
+- A guitar string
+- An LC circuit
+- An RLC circuit
+- An electromagnetic cavity
+- An optical cavity
+- A vibrating crystal
+- A quantum harmonic oscillator
+- A cavity mode containing photons
 
-The important idea is:
+A simple classical oscillator can be represented as:
 
-> A system responds particularly strongly when it is driven close to its natural frequency.
-
-This phenomenon is called **resonance**.
-
----
-
-# 3. The Basic Physical Model
-
-Our Python model describes a **damped, driven harmonic oscillator**.
-
-The equation of motion is:
-
-$$
-m\ddot{x} + b\dot{x} + kx = F_0\cos(\omega t)
-$$
-
-This equation contains three physical effects.
-
-### Inertia
-
-$$
-m\ddot{x}
-$$
-
-The mass resists acceleration.
-
-### Damping
-
-$$
-b\dot{x}
-$$
-
-Damping removes energy from the oscillator.
-
-Examples:
-
-- Air resistance
-- Friction
-- Electrical resistance
-- Internal material losses
-
-### Restoring force
-
-$$
-kx
-$$
-
-The spring attempts to return the system to equilibrium.
-
-### Driving force
-
-$$
-F_0\cos(\omega t)
-$$
-
-An external force continuously drives the oscillator.
-
----
-
-# 4. Natural Frequency
-
-Consider the system without damping and external driving:
-
-$$
-m\ddot{x}+kx=0
-$$
-
-Rearranging:
-
-$$
-\ddot{x}+\frac{k}{m}x=0
-$$
-
-The solution is:
-
-$$
-x(t)=A\cos(\omega_0 t + \phi)
-$$
+[
+x(t)=A\cos(\omega t+\phi)
+]
 
 where:
 
-$$
-\boxed{\omega_0=\sqrt{\frac{k}{m}}}
-$$
+- (A) is the amplitude
+- (\omega) is the angular frequency
+- (t) is time
+- (\phi) is the phase
 
-This is the natural angular frequency.
-
-In Hz:
-
-$$
-\boxed{f_0=\frac{1}{2\pi}\sqrt{\frac{k}{m}}}
-$$
-
-### Physical intuition
-
-Increasing (k):
-
-```text
-larger k
-   ↓
-stiffer spring
-   ↓
-stronger restoring force
-   ↓
-faster oscillation
-   ↓
-higher natural frequency
-```
-
-Increasing (m):
-
-```text
-larger m
-   ↓
-more inertia
-   ↓
-harder to accelerate
-   ↓
-slower oscillation
-   ↓
-lower natural frequency
-```
-
----
-
-# 5. What is Driving Frequency?
-
-Suppose we apply an external periodic force:
-
-$$
-F(t)=F_0\cos(\omega t)
-$$
-
-The external source has its own frequency:
+The angular frequency and ordinary frequency are related by:
 
 [
-\omega
+\boxed{\omega=2\pi f}
 ]
 
-This is called the **driving frequency**.
+---
 
-There are therefore two important frequencies:
+# 2. What Is a Resonator?
 
-| Frequency | Meaning                                 |
-| --------- | --------------------------------------- |
-| (f_0)     | Natural frequency of the system         |
-| (f)       | Frequency of the external driving force |
+An oscillator simply needs to oscillate.
 
-The interesting physics occurs when these frequencies become close.
+A **resonator** is an oscillator or physical system that has one or more characteristic frequencies at which it responds particularly strongly.
+
+For example, consider a mass attached to a spring.
+
+The system has a natural angular frequency:
+
+[
+\boxed{\omega_0=\sqrt{\frac{k}{m}}}
+]
+
+and natural frequency:
+
+[
+\boxed{
+f_0=\frac{1}{2\pi}\sqrt{\frac{k}{m}}
+}
+]
+
+where:
+
+- (m) is the mass
+- (k) is the spring constant
+
+This natural frequency is one of the most important properties of the resonator.
 
 ---
 
-# 6. What is Resonance?
+# 3. The Fundamental Idea of Resonance
 
-Suppose a resonator naturally wants to oscillate at:
+Suppose a resonator naturally oscillates at:
 
-$$
-f_0=2\ \text{Hz}
-$$
+[
+f_0=2\text{ Hz}
+]
 
-Now imagine driving it at different frequencies.
+Now apply an external periodic force.
 
-```text
-Driving frequency
+If the driving frequency is far away from (2\text{ Hz}), the response may be relatively small.
 
-0.5 Hz  → small response
-1.0 Hz  → larger response
-1.5 Hz  → large response
-2.0 Hz  → VERY large response
-2.5 Hz  → response decreases
-4.0 Hz  → small response
-```
+But if:
 
-Around the natural frequency, the amplitude becomes large.
+[
+f_{\text{drive}}\approx f_0
+]
 
-This is **resonance**.
+the oscillator can absorb energy very efficiently.
 
-The frequency-response curve typically looks like:
+The amplitude can become very large.
 
-```text
-Amplitude
-   │
-   │              /\
-   │             /  \
-   │            /    \
-   │           /      \
-   │__________/        \________
-   │
-   └──────────────────────────────
-                 Frequency
-                    ↑
-               resonance
-```
+This phenomenon is called:
+
+[
+\boxed{\text{resonance}}
+]
 
 ---
 
-# 7. Why Does Resonance Happen?
-
-The most useful intuition is **energy transfer**.
+# 4. The Swing Analogy
 
 Imagine pushing a swing.
 
-If you push randomly:
+If you push at random times:
 
 ```text
-push → swing → push → swing
+push → motion
+      ↓
+push → sometimes helps
+      ↓
+push → sometimes opposes
 ```
 
-sometimes your push helps the motion and sometimes it works against it.
+Energy is transferred inefficiently.
 
-But if you push at exactly the right time:
+But if you push at the correct frequency and phase:
 
 ```text
 push → motion increases
@@ -292,33 +146,166 @@ push → motion increases
 push → motion increases
 ```
 
-Energy is transferred efficiently from the external source into the oscillator.
+The swing gets larger and larger.
 
-Therefore the oscillation amplitude becomes large.
+This is the basic intuition behind resonance.
 
-That is the physical origin of resonance.
+The external source is transferring energy into the oscillator efficiently.
 
 ---
 
-# 8. Damping
+# 5. Classical Harmonic Oscillator
 
-Real systems do not oscillate forever.
+The simplest resonator is the mass–spring system.
 
-Energy is continuously lost.
-
-We represent this using the damping term:
-
-$$
-b\dot{x}
-$$
-
-The equation becomes:
+By Newton's second law:
 
 [
-m\ddot{x}+b\dot{x}+kx=0
+F=m\ddot{x}
 ]
 
-Damping can come from:
+The restoring force from the spring is:
+
+[
+F=-kx
+]
+
+Therefore:
+
+[
+m\ddot{x}=-kx
+]
+
+or:
+
+[
+\boxed{
+m\ddot{x}+kx=0
+}
+]
+
+Dividing by (m):
+
+[
+\ddot{x}+\frac{k}{m}x=0
+]
+
+Comparing this with the standard harmonic oscillator equation:
+
+[
+\ddot{x}+\omega_0^2x=0
+]
+
+we obtain:
+
+[
+\boxed{
+\omega_0=\sqrt{\frac{k}{m}}
+}
+]
+
+---
+
+# 6. Python Example — Classical Resonator
+
+```python
+import numpy as np
+
+mass = 1.0
+spring_constant = 100.0
+
+omega_0 = np.sqrt(spring_constant / mass)
+frequency = omega_0 / (2 * np.pi)
+
+print("Natural angular frequency:", omega_0, "rad/s")
+print("Natural frequency:", frequency, "Hz")
+```
+
+For:
+
+[
+m=1\text{ kg}
+]
+
+and:
+
+[
+k=100\text{ N/m}
+]
+
+we obtain:
+
+[
+\omega_0=10\text{ rad/s}
+]
+
+and:
+
+[
+f_0\approx1.59\text{ Hz}
+]
+
+---
+
+# 7. Why Does the System Have a Natural Frequency?
+
+This can be understood physically.
+
+The spring stores potential energy:
+
+[
+U=\frac12kx^2
+]
+
+The moving mass stores kinetic energy:
+
+[
+K=\frac12mv^2
+]
+
+The energy continuously moves between these two forms:
+
+[
+\boxed{
+\text{Potential Energy}
+\leftrightarrow
+\text{Kinetic Energy}
+}
+]
+
+At maximum displacement:
+
+[
+K\approx0
+]
+
+and:
+
+[
+U\text{ is maximum}
+]
+
+At equilibrium:
+
+[
+U\approx0
+]
+
+and:
+
+[
+K\text{ is maximum}
+]
+
+This continuous energy exchange produces oscillation.
+
+---
+
+# 8. Damped Oscillator
+
+Real oscillators lose energy.
+
+Examples:
 
 - Friction
 - Air resistance
@@ -326,337 +313,548 @@ Damping can come from:
 - Internal material losses
 - Radiation
 
----
+We introduce a damping force:
 
-# 9. Damping Ratio
-
-A useful dimensionless quantity is the damping ratio:
-
-$$
-\zeta=\frac{b}{2\sqrt{mk}}
-$$
-
-It tells us how strongly the system is damped.
-
-### Low damping
-
-$$
-\zeta \ll 1
-$$
-
-The system oscillates strongly.
-
-### Critical damping
-
-$$
-\zeta=1
-$$
-
-The system returns to equilibrium as quickly as possible without oscillating.
-
-### High damping
-
-$$
-\zeta>1
-$$
-
-The system returns slowly without oscillating.
-
----
-
-# 10. Damping and Resonance
-
-Damping has a major effect on the resonance curve.
-
-### Low damping
-
-```text
-Amplitude
-   │
-   │              /\
-   │             /  \
-   │            /    \
-   │___________/      \________
-   │
-   └──────────────────────────
-```
-
-A sharp resonance peak occurs.
-
-### High damping
-
-```text
-Amplitude
-   │
-   │           ______
-   │         /        \
-   │________/          \_______
-   │
-   └──────────────────────────
-```
-
-The peak becomes lower and broader.
+[
+F_d=-b\dot{x}
+]
 
 Therefore:
 
-> More damping generally reduces the maximum resonance amplitude and makes the resonance less sharp.
+[
+m\ddot{x}+b\dot{x}+kx=0
+]
+
+This is the equation of a damped harmonic oscillator.
 
 ---
 
-# 11. Frequency Response
+# 9. Physical Meaning of Damping
 
-For the driven system
+Without damping:
 
-$$
-m\ddot{x}+b\dot{x}+kx=F_0\cos(\omega t)
-$$
-
-the steady-state amplitude is
-
-$$
-\boxed{A(\omega)=\frac{F_0}{\sqrt{(k-m\omega^2)^2+(b\omega)^2}}}
-$$
-
-This equation is implemented in:
-
-```python
-def amplitude(self, driving_frequency, force_amplitude=1.0):
+```text
+Amplitude
+   │
+   │  /\/\/\/\/\/\/\/\/\
+   │ /
+   └────────────────────── time
 ```
 
-The program evaluates this equation for many frequencies.
+The ideal oscillator continues forever.
 
-For example:
+With damping:
 
-```python
-frequencies = np.linspace(0.1, 5, 1000)
-
-amplitudes = resonator.frequency_response(
-    frequencies
-)
+```text
+Amplitude
+   │
+   │\/\
+   │   \/\
+   │      \/\
+   │         \/\
+   │            \/
+   └──────────────────── time
 ```
 
-We can then plot:
+The amplitude gradually decreases because energy is being lost.
+
+---
+
+# 10. Damping Ratio
+
+The damping ratio is:
+
+[
+\boxed{
+\zeta=
+\frac{b}{2\sqrt{mk}}
+}
+]
+
+It tells us how strongly the system is damped.
+
+### Underdamped
+
+[
+0<\zeta<1
+]
+
+The system oscillates while gradually losing energy.
+
+### Critically damped
+
+[
+\zeta=1
+]
+
+The system returns to equilibrium as quickly as possible without oscillating.
+
+### Overdamped
+
+[
+\zeta>1
+]
+
+The system returns to equilibrium without oscillating and does so more slowly.
+
+---
+
+# 11. Driven Oscillator
+
+Now suppose an external periodic force is applied:
+
+[
+F(t)=F_0\cos(\omega t)
+]
+
+The equation becomes:
+
+[
+\boxed{
+m\ddot{x}
++b\dot{x}
++kx
+===
+
+F_0\cos(\omega t)
+}
+]
+
+This is the fundamental equation of the **driven damped resonator**.
+
+There are now two important frequencies:
+
+### Natural frequency
+
+[
+\omega_0=\sqrt{\frac{k}{m}}
+]
+
+### Driving frequency
+
+[
+\omega
+]
+
+The interesting physics occurs when:
+
+[
+\omega\approx\omega_0
+]
+
+---
+
+# 12. Steady-State Amplitude
+
+For the driven oscillator, the steady-state amplitude is:
+
+[
+\boxed{
+A(\omega)
+=========
+
+\frac{F_0}
+{
+\sqrt{
+(k-m\omega^2)^2+(b\omega)^2
+}
+}
+}
+]
+
+This equation tells us how strongly the system responds to a driving frequency.
+
+This is called the **frequency response**.
+
+---
+
+# 13. Frequency Response
+
+We can calculate:
 
 [
 A(f)
 ]
 
-against frequency.
+for many frequencies and plot the result.
 
-This produces the resonance curve.
+Conceptually:
+
+```text
+Amplitude
+   │
+   │                  /\
+   │                 /  \
+   │                /    \
+   │               /      \
+   │______________/        \____________
+   │
+   └────────────────────────────────────
+                         frequency
+                              ↑
+                         resonance
+```
+
+The peak identifies the region of strongest response.
 
 ---
 
-# 12. Resonance Frequency
+# 14. Python Example — Frequency Response
 
-For an ideal undamped oscillator:
+```python
+import numpy as np
+import matplotlib.pyplot as plt
 
-[
-f_r=f_0
-]
+m = 1.0
+b = 0.5
+k = 100.0
+F0 = 1.0
 
-For a damped oscillator, the resonance frequency is slightly shifted.
+frequencies = np.linspace(0.1, 5, 1000)
 
-Using
+omega = 2 * np.pi * frequencies
 
-$$
-\gamma=\frac{b}{2m}
-$$
-
-the angular resonance frequency is approximately:
-
-$$
-\omega_r=\sqrt{\omega_0^2-2\gamma^2}
-$$
-
-provided the expression under the square root is positive.
-
-For weak damping:
-
-$$
-\omega_r\approx\omega_0
-$$
-
-Therefore, in many practical systems:
-
-$$
-\boxed{f_r\approx f_0}
-$$
-
----
-
-# 13. Running the Project
-
-Install the required packages:
-
-```bash
-pip install numpy matplotlib
-```
-
-Run:
-
-```bash
-python examples.py
-```
-
-The program will:
-
-1. Create a classical resonator.
-2. Calculate its natural frequency.
-3. Calculate its damping ratio.
-4. Calculate its resonance frequency.
-5. Plot the frequency response.
-6. Compare different damping values.
-
----
-
-# 14. Example Parameters
-
-The example uses:
-
-```
-resonator = ClassicalResonator(
-        mass=1.0,
-        damping=0.5,
-        spring_constant=100.0
+amplitude = F0 / np.sqrt(
+    (k - m * omega**2)**2 +
+    (b * omega)**2
 )
+
+plt.plot(frequencies, amplitude)
+
+plt.xlabel("Driving Frequency (Hz)")
+plt.ylabel("Amplitude (m)")
+plt.title("Frequency Response")
+
+plt.grid()
+plt.show()
 ```
 
-Therefore:
+---
 
-$$
-m=1\ \text{kg}
-$$
+# 15. What Happens When Damping Changes?
 
-$$
-b=0.5\ \text{N\cdot s/m}
-$$
+Consider three systems:
 
-$$
-k=100\ \text{N/m}
-$$
+```text
+Low damping
+       /\
+      /  \
+     /    \
+____/      \____
 
-The natural angular frequency is:
 
-$$
-\omega_0=\sqrt{\frac{100}{1}}=10\ \text{rad/s}
-$$
+Medium damping
+       /\
+      /  \
+_____/    \_____
 
-Therefore:
 
-$$
-f_0=\frac{10}{2\pi}\approx1.59\ \text{Hz}
-$$
+High damping
+      ______
+_____/      \_____
+```
 
-So the system naturally wants to oscillate at approximately:
+Low damping produces:
 
-$$
-\boxed{1.59\ \text{Hz}}
-$$
+- High resonance peak
+- Narrow resonance
+- Strong response
+
+High damping produces:
+
+- Lower resonance peak
+- Broader response
+- Weaker resonance
 
 ---
 
-# 15. Real-World Applications
+# 16. Quality Factor (Q)
 
-## 15.1 Mechanical Systems
+The **quality factor** describes how sharp or selective a resonance is.
 
-Buildings, bridges, machines and aircraft can behave like resonators.
-
-Engineers need to avoid dangerous resonance conditions.
-
-For example, if a machine produces vibrations near a structure's natural frequency, the resulting oscillations can become very large.
-
----
-
-## 15.2 Musical Instruments
-
-Musical instruments depend heavily on resonance.
-
-For example:
-
-- Guitar body
-- Violin body
-- Piano strings
-- Flute air column
-
-A guitar string alone does not produce the same loudness as the complete instrument.
-
-The body acts as a resonant system that helps transfer energy into sound.
-
----
-
-## 15.3 Quartz Clocks
-
-Quartz crystals have well-defined mechanical resonance frequencies.
-
-Electronic circuits can use this resonance as a highly stable frequency reference.
-
-This principle is used in:
-
-- Watches
-- Computers
-- Microcontrollers
-- Communication devices
-
----
-
-## 15.4 Radio and Electronics
-
-Electrical circuits can behave like resonators.
-
-An LC circuit has a natural angular frequency:
+For a lightly damped mechanical oscillator:
 
 [
-\omega_0=\frac{1}{\sqrt{LC}}
+\boxed{
+Q\approx\frac{m\omega_0}{b}
+}
 ]
 
-This is mathematically analogous to the mass-spring oscillator.
+A high-(Q) resonator has:
 
-The analogy is:
+[
+\boxed{\text{sharp resonance}}
+]
 
-| Mechanical  | Electrical                |
-| ----------- | ------------------------- |
-| Mass (m)    | Inductance (L)            |
-| Spring (k)  | Inverse capacitance (1/C) |
-| Damping (b) | Resistance (R)            |
-| Force       | Voltage                   |
-| Velocity    | Current                   |
+A low-(Q) resonator has:
 
-This is one reason studying the classical oscillator is so useful.
+[
+\boxed{\text{broad resonance}}
+]
+
+This concept becomes extremely important in:
+
+- Radio circuits
+- Microwave cavities
+- Optical cavities
+- Lasers
+- Quantum optics
+- Precision measurements
 
 ---
 
-# 16. Resonators in Optics
+# 17. Example: Radio / RLC Resonator
 
 Resonance is not limited to mechanical systems.
 
-Optical cavities can support electromagnetic fields at particular frequencies.
+Consider an LC circuit.
 
-A laser cavity is an important example.
+The natural angular frequency is:
 
-Only certain electromagnetic modes satisfy the cavity conditions.
+[
+\boxed{
+\omega_0=\frac{1}{\sqrt{LC}}
+}
+]
 
-This produces the concept of **optical resonance**.
+and:
 
-The same general idea appears:
+[
+\boxed{
+f_0=
+\frac{1}{2\pi\sqrt{LC}}
+}
+]
+
+The correspondence with the mechanical oscillator is:
+
+| Mechanical          | Electrical     |
+| ------------------- | -------------- |
+| Mass (m)            | Inductance (L) |
+| Spring constant (k) | (1/C)          |
+| Damping (b)         | Resistance (R) |
+| Position (x)        | Charge (q)     |
+| Velocity (\dot{x})  | Current (I)    |
+| Force (F)           | Voltage (V)    |
+
+This is a powerful example of **mathematical equivalence between physical systems**.
+
+---
+
+# 18. Example: Guitar String
+
+A guitar string is a mechanical resonator.
+
+The string has characteristic frequencies determined by:
+
+- Length
+- Tension
+- Mass per unit length
+
+For an ideal stretched string:
+
+[
+\boxed{
+f_n=
+\frac{n}{2L}
+\sqrt{\frac{T}{\mu}}
+}
+]
+
+where:
+
+- (n=1,2,3,\ldots)
+- (L) is string length
+- (T) is tension
+- (\mu) is mass per unit length
+
+The string therefore supports multiple resonant frequencies.
+
+These are called **harmonics** or **normal modes**.
+
+---
+
+# 19. Example: Building Resonance
+
+A building has natural vibrational modes.
+
+Earthquakes contain a broad range of frequencies.
+
+If significant energy occurs near one of the building's natural frequencies:
+
+[
+f_{\text{earthquake}}\approx f_{\text{building}}
+]
+
+the building can experience enhanced oscillations.
+
+This is why engineers study:
+
+- Natural frequencies
+- Normal modes
+- Damping
+- Resonance
+- Structural response
+
+---
+
+# 20. Coupled Resonators
+
+Now imagine two masses connected by springs.
+
+```text
+[m₁] ---- spring ---- [m₂]
+```
+
+The masses interact.
+
+The system no longer has only one frequency.
+
+It can have multiple **normal modes**.
+
+For example:
+
+### In-phase mode
+
+```text
+m₁ →       m₂ →
+```
+
+Both masses move together.
+
+### Out-of-phase mode
+
+```text
+m₁ →       ← m₂
+```
+
+The masses move in opposite directions.
+
+These modes have different frequencies.
+
+This concept becomes extremely important in:
+
+- Molecular vibrations
+- Crystal lattices
+- Phonons
+- Coupled optical cavities
+- Quantum systems
+
+---
+
+# 21. Optical Resonator
+
+A resonator can also be electromagnetic.
+
+Consider two mirrors:
+
+```text
+Mirror                     Mirror
+  │                           │
+  │   ← electromagnetic →     │
+  │   →     field      ←      │
+  │                           │
+```
+
+Light reflects repeatedly between the mirrors.
+
+Only certain wavelengths satisfy the cavity boundary conditions.
+
+For a simple cavity:
+
+[
+L=n\frac{\lambda}{2}
+]
+
+where:
+
+- (L) is cavity length
+- (n) is an integer
+- (\lambda) is wavelength
+
+Therefore:
+
+[
+\boxed{
+\lambda_n=\frac{2L}{n}
+}
+]
+
+and since:
+
+[
+f=\frac{c}{\lambda}
+]
+
+the resonant frequencies are:
+
+[
+\boxed{
+f_n=\frac{nc}{2L}
+}
+]
+
+These are the allowed cavity modes.
+
+---
+
+# 22. Why Are Optical Cavities Important?
+
+Optical resonators are fundamental to:
+
+- Lasers
+- Interferometers
+- Precision spectroscopy
+- Quantum optics
+- Cavity QED
+- Optical clocks
+- Photonic systems
+
+A laser cavity is essentially an electromagnetic resonator with gain.
+
+The cavity selects particular electromagnetic modes.
+
+---
+
+# 23. Classical Resonator vs Optical Resonator
+
+The mathematical idea is remarkably similar.
+
+### Mechanical resonator
+
+[
+m\ddot{x}+b\dot{x}+kx=F(t)
+]
+
+### Optical resonator
+
+The electromagnetic field satisfies Maxwell's equations and cavity boundary conditions.
+
+The field supports discrete modes:
+
+[
+f_1,f_2,f_3,\ldots
+]
+
+In both cases:
 
 ```text
 Physical system
       ↓
-Allowed oscillations
+Boundary / restoring mechanism
+      ↓
+Allowed modes
       ↓
 Characteristic frequencies
       ↓
-Driving near those frequencies
-      ↓
-Strong response
+Resonance
 ```
 
 ---
 
-# 17. Resonators in Quantum Physics
+# 24. Now Enter Quantum Mechanics
 
-The classical harmonic oscillator is especially important because it provides the foundation for the **quantum harmonic oscillator**.
+The classical harmonic oscillator has a quantum counterpart.
 
 Classically:
 
@@ -670,13 +868,1093 @@ H=
 In quantum mechanics:
 
 [
+\boxed{
+\hat{H}
+=======
+
+\frac{\hat{p}^2}{2m}
+
+- \frac12m\omega^2\hat{x}^2
+  }
+  ]
+
+The Hamiltonian becomes an operator.
+
+The energy is no longer continuous.
+
+Instead:
+
+[
+\boxed{
+E_n=
+\hbar\omega
+\left(
+n+\frac12
+\right)
+}
+]
+
+where:
+
+[
+n=0,1,2,\ldots
+]
+
+---
+
+# 25. Classical vs Quantum Harmonic Oscillator
+
+Classically, the oscillator can have any energy:
+
+[
+E>0
+]
+
+Quantum mechanically:
+
+[
+E_n=
+\hbar\omega
+\left(n+\frac12\right)
+]
+
+Therefore:
+
+```text
+Classical
+
+Energy
+│
+│
+│
+│
+└──────────────────
+
+
+Quantum
+
+Energy
+│        ───── E₂
+│
+│        ───── E₁
+│
+│        ───── E₀
+│
+└──────────────────
+```
+
+The energy levels are discrete.
+
+---
+
+# 26. Why Does the Quantum Harmonic Oscillator Matter?
+
+The quantum harmonic oscillator is one of the most important models in physics.
+
+It appears in:
+
+- Molecular vibrations
+- Crystal vibrations
+- Phonons
+- Quantum optics
+- Electromagnetic field modes
+- Cavity QED
+- Vibrational spectroscopy
+- Quantum information
+
+Even complicated physical systems can often be approximated near equilibrium as harmonic oscillators.
+
+---
+
+# 27. The Most Important Quantum Connection
+
+An electromagnetic field mode can be quantized as a harmonic oscillator.
+
+This is a profound connection.
+
+Classically:
+
+[
+\text{Electromagnetic mode}
+\longleftrightarrow
+\text{harmonic oscillator}
+]
+
+Quantum mechanically:
+
+[
+\text{Quantized EM mode}
+\longleftrightarrow
+\text{quantum harmonic oscillator}
+]
+
+The energy becomes:
+
+[
+E_n=
+\hbar\omega
+\left(n+\frac12\right)
+]
+
+The excitation number (n) corresponds to the number of photons in that mode.
+
+Thus:
+
+[
+\boxed{
+n=\text{photon number}
+}
+]
+
+and the photon energy is:
+
+[
+\boxed{
+E_{\text{photon}}=\hbar\omega
+}
+]
+
+---
+
+# 28. Quantum Optical Resonator
+
+Consider a cavity that supports one electromagnetic mode.
+
+Classically, that mode has frequency:
+
+[
+\omega_c
+]
+
+After quantization, we can write:
+
+[
+\boxed{
+\hat{H}\_{\text{cavity}}
+=======================
+
+\hbar\omega_c
+\left(
+\hat{a}^{\dagger}\hat{a}
+
+- \frac12
+  \right)
+  }
+  ]
+
+where:
+
+- (\hat{a}) is the annihilation operator
+- (\hat{a}^{\dagger}) is the creation operator
+- (\hat{a}^{\dagger}\hat{a}) is the photon-number operator
+
+The eigenstates are:
+
+[
+|0\rangle,\ |1\rangle,\ |2\rangle,\ldots
+]
+
+representing:
+
+- Zero photons
+- One photon
+- Two photons
+- etc.
+
+---
+
+# 29. Vacuum Fluctuations
+
+The quantum harmonic oscillator has a ground-state energy:
+
+[
+\boxed{
+E_0=\frac12\hbar\omega
+}
+]
+
+This means that even when:
+
+[
+n=0
+]
+
+the oscillator still has nonzero energy.
+
+This is called **zero-point energy**.
+
+In quantum optics, the vacuum state is not simply "nothing."
+
+The electromagnetic field has quantum fluctuations even in the vacuum state.
+
+This concept becomes important in:
+
+- Quantum optics
+- Quantum noise
+- Squeezed states
+- Quantum random-number generation
+- Casimir effect
+- Cavity QED
+
+---
+
+# 30. Classical Resonance vs Quantum Resonance
+
+There is an important conceptual difference.
+
+### Classical
+
+A classical resonator can have a continuous amplitude.
+
+Driving near its resonance frequency can produce a large oscillation.
+
+### Quantum
+
+The system has discrete energy states.
+
+For a quantum harmonic oscillator:
+
+[
+E_n=
+\hbar\omega
+\left(n+\frac12\right)
+]
+
+A quantum system can undergo transitions between energy levels when interacting with an appropriate external field.
+
+For example:
+
+[
+|n\rangle
+\rightarrow
+|n+1\rangle
+]
+
+The energy difference is:
+
+[
+\Delta E
+========
+
+# E\_{n+1}-E_n
+
+\hbar\omega
+]
+
+Therefore the required transition frequency is:
+
+[
+\boxed{
+\omega_{\text{transition}}=\omega
+}
+]
+
+This is one way resonance appears in quantum physics.
+
+---
+
+# 31. Two-Level Quantum System
+
+A two-level atom can be represented by:
+
+[
+|g\rangle
+]
+
+for the ground state and:
+
+[
+|e\rangle
+]
+
+for the excited state.
+
+The energy difference is:
+
+[
+\Delta E=E_e-E_g
+]
+
+The corresponding transition frequency is:
+
+[
+\boxed{
+\omega_0=\frac{\Delta E}{\hbar}
+}
+]
+
+If we drive the atom with an electromagnetic field having:
+
+[
+\omega_{\text{drive}}\approx\omega_0
+]
+
+the atom can strongly interact with the field.
+
+Again we encounter resonance.
+
+---
+
+# 32. Rabi Oscillations
+
+A driven two-level quantum system can exhibit oscillations between:
+
+[
+|g\rangle
+]
+
+and:
+
+[
+|e\rangle
+]
+
+These are called **Rabi oscillations**.
+
+Conceptually:
+
+```text
+Ground state
+    │
+    │  resonant drive
+    ↓
+Excited state
+    │
+    │
+    ↓
+Ground state
+    │
+    ↓
+Excited state
+```
+
+The population can oscillate between the two states.
+
+This is a quantum analogue of oscillatory dynamics, but it is fundamentally described using quantum amplitudes and probabilities.
+
+---
+
+# 33. Cavity QED
+
+Now combine:
+
+1. A quantum electromagnetic cavity
+2. A quantum atom
+
+The cavity has a frequency:
+
+[
+\omega_c
+]
+
+The atom has a transition frequency:
+
+[
+\omega_a
+]
+
+If:
+
+[
+\omega_a\approx\omega_c
+]
+
+the atom and cavity interact strongly.
+
+This is the domain of:
+
+[
+\boxed{\text{Cavity Quantum Electrodynamics}}
+]
+
+or:
+
+[
+\boxed{\text{Cavity QED}}
+]
+
+---
+
+# 34. Jaynes–Cummings Model
+
+A fundamental model of cavity QED is the Jaynes–Cummings Hamiltonian:
+
+[
+\boxed{
+\hat{H}
+=======
+
+\hbar\omega_c
+\hat{a}^{\dagger}\hat{a}
+
+- \frac{\hbar\omega_a}{2}\hat{\sigma}\*z
+- \hbar g
+  \left(
+  \hat{a}^{\dagger}\hat{\sigma}\*-
+- \hat{a}\hat{\sigma}\_+
+  \right)
+  }
+  ]
+
+Here:
+
+- (\omega_c) is the cavity frequency
+- (\omega_a) is the atomic transition frequency
+- (g) is the atom-cavity coupling strength
+- (\hat{a}^{\dagger}) creates a photon
+- (\hat{a}) destroys a photon
+- (\hat{\sigma}\_+) excites the atom
+- (\hat{\sigma}\_-) de-excites the atom
+
+The interaction allows energy to move between:
+
+[
+\boxed{
+\text{Atom}
+\leftrightarrow
+\text{Cavity}
+}
+]
+
+---
+
+# 35. Why This Matters for Quantum Physics
+
+The same concept of resonance has now appeared at several levels.
+
+### Classical mechanics
+
+[
+\text{mass-spring resonance}
+]
+
+### Electrical engineering
+
+[
+\text{LC/RLC resonance}
+]
+
+### Electromagnetism
+
+[
+\text{cavity modes}
+]
+
+### Quantum mechanics
+
+[
+\text{energy-level transitions}
+]
+
+### Quantum optics
+
+[
+\text{atom-field resonance}
+]
+
+### Cavity QED
+
+[
+\text{atom-cavity resonance}
+]
+
+The mathematical details become more sophisticated, but the physical intuition remains related.
+
+---
+
+# 36. Classical and Quantum Picture
+
+A useful conceptual map is:
+
+```text
+                 RESONANCE
+                     │
+          ┌──────────┴──────────┐
+          │                     │
+      CLASSICAL              QUANTUM
+          │                     │
+          ↓                     ↓
+   Harmonic oscillator    Quantum oscillator
+          │                     │
+          ↓                     ↓
+   Natural frequency       Energy levels
+          │                     │
+          ↓                     ↓
+   Driven oscillator       Quantum transitions
+          │                     │
+          ↓                     ↓
+      Resonance              Resonance
+          │                     │
+          ↓                     ↓
+   Optical cavity          Quantum cavity
+                                │
+                                ↓
+                           Cavity QED
+```
+
+---
+
+# 37. Python Example — Quantum Harmonic Oscillator
+
+We can calculate the first several energy levels easily.
+
+```python
+import numpy as np
+
+hbar = 1.054571817e-34
+omega = 2 * np.pi * 1e9
+
+n = np.arange(0, 6)
+
+energy = hbar * omega * (n + 0.5)
+
+for level, E in zip(n, energy):
+    print(f"n = {level}, E = {E:.3e} J")
+```
+
+The important physics is:
+
+[
+E_n=
+\hbar\omega
+\left(n+\frac12\right)
+]
+
+---
+
+# 38. Python Example — Photon Energy
+
+A cavity mode with frequency:
+
+[
+f
+]
+
+contains photons with energy:
+
+[
+\boxed{
+E=hf
+}
+]
+
+Since:
+
+[
+\omega=2\pi f
+]
+
+we can also write:
+
+[
+\boxed{
+E=\hbar\omega
+}
+]
+
+Python:
+
+```python
+h = 6.62607015e-34
+
+frequency = 5e14
+
+photon_energy = h * frequency
+
+print("Photon energy:", photon_energy, "J")
+```
+
+---
+
+# 39. Example — Optical Cavity
+
+Suppose:
+
+[
+L=1\text{ cm}
+]
+
+The fundamental cavity frequency is approximately:
+
+[
+f_1=\frac{c}{2L}
+]
+
+Python:
+
+```python
+c = 3e8
+L = 0.01
+
+f1 = c / (2 * L)
+
+print("Fundamental cavity frequency:", f1, "Hz")
+```
+
+The higher modes are:
+
+[
+f_n=\frac{nc}{2L}
+]
+
+so:
+
+[
+f_1,\quad
+f_2,\quad
+f_3,\quad\ldots
+]
+
+form a discrete set of cavity resonances.
+
+---
+
+# 40. Resonance in Your Quantum Optics Work
+
+Resonators are especially important in quantum optics.
+
+For example, consider a laser cavity.
+
+The cavity determines which electromagnetic modes are supported.
+
+Then consider a quantum optical experiment involving:
+
+- Laser
+- Beam splitter
+- Interferometer
+- Photodetector
+- Optical cavity
+- Nonlinear crystal
+
+The language of resonance appears repeatedly.
+
+For example:
+
+[
+\boxed{
+\text{Cavity resonance}
+}
+]
+
+determines which optical frequencies build up inside the cavity.
+
+Similarly, atomic systems have transition frequencies:
+
+[
+\boxed{
+\omega\_{eg}
+===========
+
+\frac{E_e-E_g}{\hbar}
+}
+]
+
+and strong interaction occurs when the driving field is near that transition frequency.
+
+---
+
+# 41. Resonance Is Really About Energy Transfer
+
+This is perhaps the most important physical interpretation.
+
+Do not memorize only:
+
+[
+f_{\text{drive}}\approx f_0
+]
+
+Instead remember:
+
+[
+\boxed{
+\text{Resonance}
+================
+
+\text{efficient energy transfer}
+}
+]
+
+The frequency matching allows the external source to continuously add energy in a favorable way.
+
+Damping removes energy.
+
+Therefore the steady-state amplitude is determined by a competition:
+
+[
+\boxed{
+\text{Energy supplied}
+\leftrightarrow
+\text{Energy lost}
+}
+]
+
+---
+
+# 42. A Unifying View
+
+Different physical resonators can look very different:
+
+```text
+Mass + Spring
+
+        ↓
+
+LC Circuit
+
+        ↓
+
+Guitar String
+
+        ↓
+
+Mechanical Structure
+
+        ↓
+
+Optical Cavity
+
+        ↓
+
+Quantum Harmonic Oscillator
+```
+
+But they share a deeper mathematical structure.
+
+Each system has:
+
+1. Degrees of freedom
+2. A restoring mechanism or boundary condition
+3. Characteristic modes
+4. Characteristic frequencies
+5. Energy storage
+6. Possible energy loss
+7. Possible external driving
+
+This is why the same ideas repeatedly appear throughout physics.
+
+---
+
+# 43. Suggested Project Experiments
+
+After running the basic program, try the following.
+
+## Experiment 1 — Change the mass
+
+Try:
+
+```python
+mass = 1
+mass = 2
+mass = 5
+```
+
+Observe:
+
+[
+\omega_0=\sqrt{\frac{k}{m}}
+]
+
+The natural frequency should decrease as mass increases.
+
+---
+
+## Experiment 2 — Change the spring constant
+
+Try:
+
+```python
+spring_constant = 25
+spring_constant = 100
+spring_constant = 400
+```
+
+Observe:
+
+[
+\omega_0\propto\sqrt{k}
+]
+
+The resonance frequency should increase.
+
+---
+
+## Experiment 3 — Increase damping
+
+Try:
+
+```python
+damping = 0.05
+damping = 0.5
+damping = 2
+damping = 5
+```
+
+Observe how the resonance peak changes.
+
+---
+
+## Experiment 4 — Change the driving force
+
+Try:
+
+```python
+F0 = 1
+```
+
+and:
+
+```python
+F0 = 5
+```
+
+The amplitude increases because more energy is supplied to the oscillator.
+
+---
+
+## Experiment 5 — Build an LC Resonator
+
+Use:
+
+[
+f_0=
+\frac{1}{2\pi\sqrt{LC}}
+]
+
+and investigate how changing (L) and (C) changes the resonance frequency.
+
+---
+
+## Experiment 6 — Simulate a Quantum Harmonic Oscillator
+
+Calculate:
+
+[
+E_n=
+\hbar\omega
+\left(n+\frac12\right)
+]
+
+for:
+
+[
+n=0,1,\ldots,10
+]
+
+Plot the energy levels.
+
+---
+
+## Experiment 7 — Optical Cavity Modes
+
+Calculate:
+
+[
+f_n=\frac{nc}{2L}
+]
+
+for:
+
+[
+n=1,\ldots,10
+]
+
+Plot the cavity modes.
+
+---
+
+# 44. What You Should Understand After This Project
+
+By completing this project, you should be able to explain:
+
+### Classical physics
+
+- What is an oscillator?
+- What is a resonator?
+- What is natural frequency?
+- What is driving frequency?
+- What is resonance?
+- Why does resonance occur?
+- What is damping?
+- What is the damping ratio?
+- What is a frequency-response curve?
+- What is quality factor (Q)?
+- What are normal modes?
+- What are coupled oscillators?
+
+### Electromagnetism
+
+- Why an LC circuit is an oscillator
+- Why an RLC circuit is a resonator
+- Why an optical cavity supports discrete modes
+- Why cavity length determines resonant frequencies
+
+### Quantum mechanics
+
+- Why the harmonic oscillator is important
+- Why its energy levels are discrete
+- What zero-point energy means
+- Why an electromagnetic mode behaves like a harmonic oscillator
+- What photon number means
+- Why resonance occurs between quantum energy levels
+
+### Quantum optics
+
+- What a cavity mode is
+- What an optical resonator is
+- What atom-field resonance means
+- What Rabi oscillations are
+- What Cavity QED means
+- Why the Jaynes–Cummings model is important
+
+---
+
+# 45. Recommended Learning Progression
+
+Do not try to jump directly to Cavity QED.
+
+Follow this sequence:
+
+```text
+1. Simple harmonic motion
+           ↓
+2. Harmonic oscillator equation
+           ↓
+3. Energy of oscillator
+           ↓
+4. Damped oscillator
+           ↓
+5. Driven oscillator
+           ↓
+6. Resonance
+           ↓
+7. Frequency response
+           ↓
+8. Phase response
+           ↓
+9. Quality factor
+           ↓
+10. Coupled oscillators
+           ↓
+11. Normal modes
+           ↓
+12. LC/RLC resonators
+           ↓
+13. Electromagnetic cavity
+           ↓
+14. Quantum harmonic oscillator
+           ↓
+15. Quantized electromagnetic field
+           ↓
+16. Photons
+           ↓
+17. Atom-field interaction
+           ↓
+18. Rabi oscillations
+           ↓
+19. Cavity QED
+```
+
+This progression is much more useful than memorizing isolated formulas.
+
+---
+
+# 46. Core Equations Cheat Sheet
+
+## Classical harmonic oscillator
+
+[
+\boxed{
+m\ddot{x}+kx=0
+}
+]
+
+## Natural angular frequency
+
+[
+\boxed{
+\omega_0=\sqrt{\frac{k}{m}}
+}
+]
+
+## Natural frequency
+
+[
+\boxed{
+f_0=\frac{\omega_0}{2\pi}
+}
+]
+
+## Damped oscillator
+
+[
+\boxed{
+m\ddot{x}+b\dot{x}+kx=0
+}
+]
+
+## Driven oscillator
+
+[
+\boxed{
+m\ddot{x}+b\dot{x}+kx
+=====================
+
+F_0\cos(\omega t)
+}
+]
+
+## Frequency response
+
+[
+\boxed{
+A(\omega)=
+\frac{F_0}
+{
+\sqrt{
+(k-m\omega^2)^2+(b\omega)^2
+}
+}
+}
+]
+
+## Damping ratio
+
+[
+\boxed{
+\zeta=
+\frac{b}{2\sqrt{mk}}
+}
+]
+
+## LC resonance
+
+[
+\boxed{
+\omega_0=
+\frac{1}{\sqrt{LC}}
+}
+]
+
+## Optical cavity
+
+[
+\boxed{
+f_n=\frac{nc}{2L}
+}
+]
+
+## Quantum harmonic oscillator
+
+[
+\boxed{
 \hat H=
 \frac{\hat p^2}{2m}
 
 - \frac12m\omega^2\hat x^2
+  }
   ]
 
-The quantum harmonic oscillator has discrete energy levels:
+## Quantum energy levels
 
 [
 \boxed{
@@ -686,281 +1964,183 @@ E_n=
 }
 ]
 
-So there is a beautiful progression:
+## Photon energy
+
+[
+\boxed{
+E_\gamma=\hbar\omega=hf
+}
+]
+
+## Atomic transition frequency
+
+$$
+[
+\boxed{
+\omega\_{eg}
+===========
+
+\frac{E_e-E_g}{\hbar}
+}
+]
+$$
+
+---
+
+# 47. The Big Picture
+
+The most important lesson of this project is that **resonance is not just a mechanical phenomenon**.
+
+It is a general physical idea.
+
+A system has characteristic modes.
+
+Those modes have characteristic frequencies.
+
+When an external interaction matches one of those frequencies, the response can become strong.
+
+This appears in:
+
+[
+\boxed{
+\begin{array}{c}
+\text{Mechanical systems}\
+\downarrow\
+\text{Electrical circuits}\
+\downarrow\
+\text{Electromagnetic cavities}\
+\downarrow\
+\text{Quantum harmonic oscillators}\
+\downarrow\
+\text{Quantum optical modes}\
+\downarrow\
+\text{Atom--field interactions}
+\end{array}
+}
+]
+
+So the simple mass–spring oscillator is not merely a beginner physics example.
+
+It is the starting point for understanding a surprisingly large part of modern physics.
+
+---
+
+# 48. Project Philosophy
+
+The purpose of this project is to develop the following scientific habit:
+
+[
+\boxed{
+\text{Physical intuition}
+\rightarrow
+\text{Mathematical model}
+\rightarrow
+\text{Python simulation}
+\rightarrow
+\text{Visualization}
+\rightarrow
+\text{Physical interpretation}
+}
+]
+
+For computational physics, this workflow is often more valuable than simply knowing how to write code.
+
+The ultimate goal is to be able to look at a physical system and ask:
+
+> **What are its degrees of freedom, what are its natural modes, what stores its energy, what causes losses, and what happens when I drive it near one of its characteristic frequencies?**
+
+Once you can ask those questions, you are thinking in terms of resonators rather than simply memorizing resonance formulas.
+
+---
+
+# References
+
+Recommended books for the physics behind this project:
+
+### Classical Mechanics
+
+- John R. Taylor — _Classical Mechanics_
+- David Morin — _Introduction to Classical Mechanics_
+
+### Electromagnetism
+
+- David J. Griffiths — _Introduction to Electrodynamics_
+- John D. Jackson — _Classical Electrodynamics_
+
+### Quantum Mechanics
+
+- David J. Griffiths & Darrell F. Schroeter — _Introduction to Quantum Mechanics_
+- J. J. Sakurai & Jim Napolitano — _Modern Quantum Mechanics_
+
+### Quantum Optics
+
+- Mark Fox — _Quantum Optics: An Introduction_
+- Marlan O. Scully & M. S. Zubairy — _Quantum Optics_
+- Christopher Gerry & Peter Knight — _Introductory Quantum Optics_
+
+### Computational Physics
+
+- Mark Newman — _Computational Physics_
+- Nicholas J. Giordano & Hisao Nakanishi — _Computational Physics_
+
+---
+
+# Final Concept
+
+If you remember only one picture from this project, remember:
 
 ```text
-Mass-Spring Oscillator
-        ↓
-Classical Harmonic Oscillator
-        ↓
-Driven/Damped Resonator
-        ↓
-Electromagnetic Resonators
-        ↓
-Quantum Harmonic Oscillator
-        ↓
-Quantum Optics
+                 RESONATOR
+                     │
+                     ▼
+             Has natural modes
+                     │
+                     ▼
+          Each mode has a frequency
+                     │
+                     ▼
+             External interaction
+                     │
+                     ▼
+       ┌─────────────┴─────────────┐
+       │                           │
+   Far from mode              Near mode
+       │                           │
+       ▼                           ▼
+ Weak response                 RESONANCE
+                                   │
+                                   ▼
+                         Efficient energy transfer
+                                   │
+                                   ▼
+                              Strong response
+                                   │
+                                   ▼
+                             Damping / Loss
 ```
 
-This is why understanding the classical resonator is valuable for quantum physics.
-
----
-
-# 18. Connection to Your Quantum Mechanics Studies
-
-The classical oscillator is not an isolated topic.
-
-You will encounter the same mathematical structure repeatedly.
-
-### Classical mechanics
-
-[
-m\ddot{x}+kx=0
-]
-
-### Classical driven oscillator
-
-[
-m\ddot{x}+b\dot{x}+kx=F(t)
-]
-
-### Quantum harmonic oscillator
-
-[
-\hat H=
-\frac{\hat p^2}{2m}
-
-- \frac12m\omega^2\hat x^2
-  ]
-
-### Quantum optics
-
-Optical modes can be mathematically represented as quantum harmonic oscillators.
-
-### Cavity QED
-
-A cavity mode interacts with atoms and behaves as a quantized electromagnetic resonator.
-
-### Open quantum systems
-
-Losses and environmental interactions introduce damping and decoherence.
-
-Thus, the classical resonator is an excellent starting point for understanding much more advanced physics.
-
----
-
-# 19. Important Physics Vocabulary
-
-| Term                | Meaning                                                         |
-| ------------------- | --------------------------------------------------------------- |
-| Oscillation         | Repeated motion around equilibrium                              |
-| Oscillator          | System capable of oscillating                                   |
-| Resonator           | Oscillator with a characteristic resonant response              |
-| Natural frequency   | Frequency at which a system naturally oscillates                |
-| Driving frequency   | Frequency of the external force                                 |
-| Resonance           | Strong response when driving is near a characteristic frequency |
-| Damping             | Loss of energy from the oscillator                              |
-| Amplitude           | Maximum displacement from equilibrium                           |
-| Frequency response  | Amplitude as a function of driving frequency                    |
-| Harmonic oscillator | Oscillator with a restoring force proportional to displacement  |
-
----
-
-# 20. The Main Mental Model
-
-Remember the entire concept using this picture:
-
-```text
-             RESONATOR
-                 │
-                 ▼
-        Has natural frequency
-                 │
-                 ▼
-       External force drives it
-                 │
-                 ▼
-      Compare driving frequency
-        with natural frequency
-                 │
-        ┌────────┴────────┐
-        │                 │
-       Far              Close
-        │                 │
-        ▼                 ▼
-   Small response      Resonance
-                          │
-                          ▼
-                    Large amplitude
-                          │
-                          ▼
-                  Damping limits it
-```
-
-The key idea is:
-
-> **Resonance is efficient energy transfer into an oscillator when the driving frequency is close to a natural frequency of the system.**
-
----
-
-# 21. What This Python Project Teaches
-
-This small project introduces several important ideas simultaneously:
-
-### Physics
-
-- Newton's second law
-- Differential equations
-- Harmonic motion
-- Natural frequency
-- Resonance
-- Damping
-- Energy transfer
-- Frequency response
-
-### Python
-
-- Classes
-- Properties
-- NumPy
-- Arrays
-- Mathematical functions
-- Matplotlib
-- Numerical visualization
-
-### Scientific computing
-
-The important workflow is:
-
-```text
-Physical system
-      ↓
-Mathematical equation
-      ↓
-Python implementation
-      ↓
-Numerical calculation
-      ↓
-Visualization
-      ↓
-Physical interpretation
-```
-
-This is the basic workflow used in computational physics.
-
----
-
-# 22. Suggested Experiments
-
-After running the program, modify one parameter at a time.
-
-### Experiment 1 — Change mass
-
-Try:
-
-```python
-mass=1
-mass=2
-mass=5
-```
-
-Observe how the natural frequency changes.
-
----
-
-### Experiment 2 — Change spring constant
-
-Try:
-
-```python
-spring_constant=25
-spring_constant=100
-spring_constant=400
-```
-
-Observe the resonance frequency.
-
----
-
-### Experiment 3 — Change damping
-
-Try:
-
-```python
-damping=0.05
-damping=0.5
-damping=2
-damping=5
-```
-
-Observe how the resonance peak changes.
-
----
-
-### Experiment 4 — Increase driving force
-
-Try:
-
-```python
-force_amplitude=1
-```
-
-then:
-
-```python
-force_amplitude=5
-```
-
-Observe how the amplitude changes.
-
----
-
-# 23. Next Step
-
-Once this basic model is understood, the project can be extended to a **time-domain simulation** by numerically solving
-
-[
-m\ddot{x}+b\dot{x}+kx=F_0\cos(\omega t)
-]
-
-using methods such as:
-
-- Euler method
-- Runge-Kutta
-- `scipy.integrate.solve_ivp`
-
-Then you can visualize:
-
-[
-x(t)
-]
-
-instead of only the steady-state frequency response.
-
-That naturally leads to:
+And in quantum physics:
 
 ```text
 Classical oscillator
-        ↓
-Damped oscillator
-        ↓
-Driven oscillator
-        ↓
-Resonance curve
-        ↓
-Phase response
-        ↓
-Fourier analysis
-        ↓
-Coupled oscillators
-        ↓
-Normal modes
-        ↓
+        │
+        ▼
 Quantum harmonic oscillator
-        ↓
-Quantum resonators
-        ↓
-Cavity QED / Quantum optics
+        │
+        ▼
+Discrete energy levels
+        │
+        ▼
+Quantized electromagnetic modes
+        │
+        ▼
+Photons
+        │
+        ▼
+Atom + cavity
+        │
+        ▼
+Cavity QED
 ```
 
-This is a very useful progression for someone moving from classical physics toward **quantum mechanics and quantum optics**.
+That is the conceptual bridge from a simple classical spring to modern quantum optics.
