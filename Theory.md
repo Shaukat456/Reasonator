@@ -39,10 +39,6 @@ The system has a preferred frequency called its **natural frequency**.
 
 For an ideal mass-spring system:
 
-[
-\omega_0 = \sqrt{\frac{k}{m}}
-]
-
 where:
 
 - (m) = mass
@@ -51,9 +47,9 @@ where:
 
 The corresponding frequency in Hz is:
 
-[
+$$
 f_0 = \frac{\omega_0}{2\pi}
-]
+$$
 
 ---
 
@@ -89,25 +85,25 @@ Our Python model describes a **damped, driven harmonic oscillator**.
 
 The equation of motion is:
 
-[
+$$
 m\ddot{x} + b\dot{x} + kx = F_0\cos(\omega t)
-]
+$$
 
 This equation contains three physical effects.
 
 ### Inertia
 
-[
+$$
 m\ddot{x}
-]
+$$
 
 The mass resists acceleration.
 
 ### Damping
 
-[
+$$
 b\dot{x}
-]
+$$
 
 Damping removes energy from the oscillator.
 
@@ -120,17 +116,17 @@ Examples:
 
 ### Restoring force
 
-[
+$$
 kx
-]
+$$
 
 The spring attempts to return the system to equilibrium.
 
 ### Driving force
 
-[
+$$
 F_0\cos(\omega t)
-]
+$$
 
 An external force continuously drives the oscillator.
 
@@ -140,35 +136,35 @@ An external force continuously drives the oscillator.
 
 Consider the system without damping and external driving:
 
-[
+$$
 m\ddot{x}+kx=0
-]
+$$
 
 Rearranging:
 
-[
+$$
 \ddot{x}+\frac{k}{m}x=0
-]
+$$
 
 The solution is:
 
-[
-x(t)=A\cos(\omega_0t+\phi)
-]
+$$
+x(t)=A\cos(\omega_0 t + \phi)
+$$
 
 where:
 
-[
+$$
 \boxed{\omega_0=\sqrt{\frac{k}{m}}}
-]
+$$
 
 This is the natural angular frequency.
 
 In Hz:
 
-[
+$$
 \boxed{f_0=\frac{1}{2\pi}\sqrt{\frac{k}{m}}}
-]
+$$
 
 ### Physical intuition
 
@@ -206,9 +202,9 @@ lower natural frequency
 
 Suppose we apply an external periodic force:
 
-[
+$$
 F(t)=F_0\cos(\omega t)
-]
+$$
 
 The external source has its own frequency:
 
@@ -233,9 +229,9 @@ The interesting physics occurs when these frequencies become close.
 
 Suppose a resonator naturally wants to oscillate at:
 
-[
-f_0=2\text{ Hz}
-]
+$$
+f_0=2\ \text{Hz}
+$$
 
 Now imagine driving it at different frequencies.
 
@@ -312,9 +308,9 @@ Energy is continuously lost.
 
 We represent this using the damping term:
 
-[
+$$
 b\dot{x}
-]
+$$
 
 The equation becomes:
 
@@ -336,34 +332,33 @@ Damping can come from:
 
 A useful dimensionless quantity is the damping ratio:
 
-[
-\zeta=
-\frac{b}{2\sqrt{mk}}
-]
+$$
+\zeta=\frac{b}{2\sqrt{mk}}
+$$
 
 It tells us how strongly the system is damped.
 
 ### Low damping
 
-[
+$$
 \zeta \ll 1
-]
+$$
 
 The system oscillates strongly.
 
 ### Critical damping
 
-[
+$$
 \zeta=1
-]
+$$
 
 The system returns to equilibrium as quickly as possible without oscillating.
 
 ### High damping
 
-[
+$$
 \zeta>1
-]
+$$
 
 The system returns slowly without oscillating.
 
@@ -412,19 +407,15 @@ Therefore:
 
 For the driven system
 
-[
+$$
 m\ddot{x}+b\dot{x}+kx=F_0\cos(\omega t)
-]
+$$
 
 the steady-state amplitude is
 
-[
-\boxed{
-A(\omega)=
-\frac{F_0}
-{\sqrt{(k-m\omega^2)^2+(b\omega)^2}}
-}
-]
+$$
+\boxed{A(\omega)=\frac{F_0}{\sqrt{(k-m\omega^2)^2+(b\omega)^2}}}
+$$
 
 This equation is implemented in:
 
@@ -468,30 +459,29 @@ For a damped oscillator, the resonance frequency is slightly shifted.
 
 Using
 
-[
+$$
 \gamma=\frac{b}{2m}
-]
+$$
 
 the angular resonance frequency is approximately:
 
-[
-\omega_r=
-\sqrt{\omega_0^2-2\gamma^2}
-]
+$$
+\omega_r=\sqrt{\omega_0^2-2\gamma^2}
+$$
 
 provided the expression under the square root is positive.
 
 For weak damping:
 
-[
+$$
 \omega_r\approx\omega_0
-]
+$$
 
 Therefore, in many practical systems:
 
-[
+$$
 \boxed{f_r\approx f_0}
-]
+$$
 
 ---
 
@@ -524,51 +514,45 @@ The program will:
 
 The example uses:
 
-```python
+```
 resonator = ClassicalResonator(
-    mass=1.0,
-    damping=0.5,
-    spring_constant=100.0
+        mass=1.0,
+        damping=0.5,
+        spring_constant=100.0
 )
 ```
 
 Therefore:
 
-[
-m=1,\text{kg}
-]
+$$
+m=1\ \text{kg}
+$$
 
-[
-b=0.5,\text{N·s/m}
-]
+$$
+b=0.5\ \text{N\cdot s/m}
+$$
 
-[
-k=100,\text{N/m}
-]
+$$
+k=100\ \text{N/m}
+$$
 
 The natural angular frequency is:
 
-[
-\omega_0=
-\sqrt{\frac{100}{1}}
-====================
-
-10\text{ rad/s}
-]
+$$
+\omega_0=\sqrt{\frac{100}{1}}=10\ \text{rad/s}
+$$
 
 Therefore:
 
-[
-f_0=
-\frac{10}{2\pi}
-\approx1.59\text{ Hz}
-]
+$$
+f_0=\frac{10}{2\pi}\approx1.59\ \text{Hz}
+$$
 
 So the system naturally wants to oscillate at approximately:
 
-[
-\boxed{1.59\text{ Hz}}
-]
+$$
+\boxed{1.59\ \text{Hz}}
+$$
 
 ---
 

@@ -1,11 +1,12 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-from resonator import ClassicalResonator
+from reasonator import ClassicalResonator
 
 # --------------------------------------------------
 # Example 1: Basic resonator
 # --------------------------------------------------
+
 
 resonator = ClassicalResonator(mass=1.0, damping=0.5, spring_constant=100.0)
 
