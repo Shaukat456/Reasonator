@@ -1,21 +1,22 @@
 import numpy as np
 
+
 class ClassicalResonator:
     # """
-# Classical damped, driven harmonic oscillator.
+    # Classical damped, driven harmonic oscillator.
 
-#     Physical system:
+    #     Physical system:
 
-#         m*x'' + b*x' + k*x = F0*cos(omega*t)
+    #         m*x'' + b*x' + k*x = F0*cos(omega*t)
 
-#     where:
-#         m     = mass
-#         b     = damping coefficient
-#         k     = spring constant
-#         F0    = driving force amplitude
-#         omega = driving angular frequency
-#         x     = displacement
-#     """
+    #     where:
+    #         m     = mass
+    #         b     = damping coefficient
+    #         k     = spring constant
+    #         F0    = driving force amplitude
+    #         omega = driving angular frequency
+    #         x     = displacement
+    #     """
 
     def __init__(self, mass, damping, spring_constant):
         self.m = mass
@@ -67,28 +68,18 @@ class ClassicalResonator:
 
         omega = 2 * np.pi * driving_frequency
 
-        denominator = np.sqrt(
-            (self.k - self.m * omega**2)**2
-            + (self.b * omega)**2
-        )
+        denominator = np.sqrt((self.k - self.m * omega**2) ** 2 + (self.b * omega) ** 2)
 
         return force_amplitude / denominator
 
-    def frequency_response(
-        self,
-        frequencies,
-        force_amplitude=1.0
-    ):
+    def frequency_response(self, frequencies, force_amplitude=1.0):
         """
         Calculate amplitude over a range of driving frequencies.
         """
 
         frequencies = np.asarray(frequencies)
 
-        return np.array([
-            self.amplitude(f, force_amplitude)
-            for f in frequencies
-        ])
+        return np.array([self.amplitude(f, force_amplitude) for f in frequencies])
 
     def resonance_frequency(self):
         """
@@ -115,5 +106,3 @@ class ClassicalResonator:
         omega_r = np.sqrt(value)
 
         return omega_r / (2 * np.pi)
-
-
