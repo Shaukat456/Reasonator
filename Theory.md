@@ -1975,7 +1975,6 @@ E_\gamma=\hbar\omega=hf
 ## Atomic transition frequency
 
 $$
-[
 \boxed{
 \omega\_{eg}
 ===========
